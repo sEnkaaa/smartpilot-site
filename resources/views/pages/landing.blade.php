@@ -45,7 +45,7 @@
 	<script>
 	(adsbygoogle = window.adsbygoogle || []).push({});
 	</script>
-	
+
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -216,12 +216,7 @@
 
 				<!-- About slider -->
 				<div class="col-md-6">
-					<div id="about-slider" class="owl-carousel owl-theme">
-						<img class="img-responsive" src="landing/img/about1.jpg" alt="">
-						<img class="img-responsive" src="landing/img/about2.jpg" alt="">
-						<img class="img-responsive" src="landing/img/about1.jpg" alt="">
-						<img class="img-responsive" src="landing/img/about2.jpg" alt="">
-					</div>
+					
 				</div>
 				<!-- /About slider -->
 
