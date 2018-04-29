@@ -62,7 +62,7 @@ class SignUpController extends Controller
                 [
                     'secret'=> env('GOOGLE_RECAPTCHA_SECRET'),
                     'response'=> $post_data['g-recaptcha-response']
-                 ]
+                ]
             ]
         );
         if (!json_decode((string)$response->getBody())->success) {
