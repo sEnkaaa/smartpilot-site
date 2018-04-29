@@ -18,6 +18,7 @@
 		<!-- ICONS -->
 		<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
 		<link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
+		<script src='https://www.google.com/recaptcha/api.js'></script>
 	</head>
 	<body>
 		<!-- WRAPPER -->
@@ -57,6 +58,7 @@
 									<label for="signup-password" class="control-label sr-only">Confirm password</label>
 									<input name="password_confirmation" type="password" class="form-control" id="signup-password-confirm" placeholder="Password confirmation">
 								</div>
+								<center><div class="g-recaptcha" data-sitekey="6LdzM1YUAAAAAMsAEenC8XlH-i6sNqp0lM0sgkDV"></div></center>
 								<button type="submit" class="btn btn-primary btn-lg btn-block">REGISTER</button>
 								<div class="bottom">
 									<span class="helper-text">Already have an account ? <a href="{{ route('signin') }}">Login</a></span>

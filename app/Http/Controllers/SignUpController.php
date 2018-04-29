@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\User;
+use GuzzleHttp\Client;
 
 class SignUpController extends Controller
 {
@@ -44,11 +45,29 @@ class SignUpController extends Controller
         $validator = Validator::make($post_data, [
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'g-recaptcha-response' => 'required'
         ]);
 
         if ($validator->fails()) {
             return redirect('signup')
                 ->withErrors($validator)
+                ->withInput();
+        }
+
+        // validate recaptcha
+        $client = new Client();
+        $response = $client->post(
+            'https://www.google.com/recaptcha/api/siteverify',
+            ['form_params'=>
+                [
+                    'secret'=> env('GOOGLE_RECAPTCHA_SECRET'),
+                    'response'=> $post_data['g-recaptcha-response']
+                 ]
+            ]
+        );
+        if (!json_decode((string)$response->getBody())->success) {
+            return redirect('signup')
+                ->withErrors(['Recaptcha validation failed'])
                 ->withInput();
         }
 
