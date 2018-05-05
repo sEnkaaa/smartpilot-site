@@ -10,19 +10,11 @@
 		<link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="/assets/vendor/themify-icons/css/themify-icons.css">
 		<link rel="stylesheet" href="/assets/vendor/pace/themes/orange/pace-theme-minimal.css">
-		<link rel="stylesheet" href="/assets/css/vendor/animate/animate.min.css">
-		<link rel="stylesheet" href="/assets/vendor/chartist/css/chartist-custom.css">
-		<link rel="stylesheet" href="/assets/vendor/datatables/css-main/jquery.dataTables.min.css">
-		<link rel="stylesheet" href="/assets/vendor/datatables/css-bootstrap/dataTables.bootstrap.min.css">
-		<link rel="stylesheet" href="/assets/vendor/datatables-tabletools/css/dataTables.tableTools.css">
-		<link rel="stylesheet" href="/assets/vendor/toastr/toastr.min.css">
+		<link rel="stylesheet" href="/assets/vendor/select2/css/select2.min.css">
 		<!-- MAIN CSS -->
 		<link rel="stylesheet" href="/assets/css/main.css">
 		<link rel="stylesheet" href="/assets/css/skins/sidebar-nav-darkgray.css" type="text/css">
 		<link rel="stylesheet" href="/assets/css/skins/navbar3.css" type="text/css">
-		<!-- FOR DEMO PURPOSES ONLY. You should/may remove this in your project -->
-		<link rel="stylesheet" href="/assets/css/demo.css">
-		<link rel="stylesheet" href="/demo-panel/style-switcher.css">
 		<!-- ICONS -->
 		<link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
 		<link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon.png">
@@ -34,17 +26,6 @@
 		  function gtag(){dataLayer.push(arguments);}
 		  gtag('js', new Date());
 		  gtag('config', 'UA-118348111-1');
-		</script>
-
-		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-		<!-- landingpage -->
-		<ins class="adsbygoogle"
-		     style="display:block"
-		     data-ad-client="ca-pub-4272783057467322"
-		     data-ad-slot="5960794653"
-		     data-ad-format="auto"></ins>
-		<script>
-		(adsbygoogle = window.adsbygoogle || []).push({});
 		</script>
 
 	</head>
@@ -80,20 +61,82 @@
 		<script src="/assets/vendor/jquery/jquery.min.js"></script>
 		<script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 		<script src="/assets/vendor/pace/pace.min.js"></script>
-		<script src="/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
-		<script src="/assets/vendor/chartist/js/chartist.min.js"></script>
-		<script src="/assets/vendor/raphael/raphael.min.js"></script>
-		<script src="/assets/vendor/jquery-mapael/js/jquery.mapael.min.js"></script>
-		<script src="/assets/vendor/jquery-mapael/js/maps/world_countries.min.js"></script>
-		<script src="/assets/vendor/datatables/js-main/jquery.dataTables.min.js"></script>
-		<script src="/assets/vendor/datatables/js-bootstrap/dataTables.bootstrap.min.js"></script>
-		<script src="/assets/vendor/datatables-tabletools/js/dataTables.tableTools.js"></script>
-		<script src="/assets/vendor/chart-js/Chart.min.js"></script>
-		<script src="/assets/vendor/Flot/jquery.flot.js"></script>
-		<script src="/assets/vendor/Flot/jquery.flot.resize.js"></script>
-		<script src="/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+		<script src="/assets/vendor/select2/js/select2.min.js"></script>
 		<script src="/assets/scripts/klorofilpro-common.js"></script>
-		<script src="/assets/vendor/toastr/toastr.min.js"></script>
+		<!-- DEMO PANEL -->
 
+		<script type="text/javascript">
+
+			$(function() {
+				$('.select-basic').select2();
+				if ($('#keywords_count').html() != 0) {
+					$('#keywordsTable').show()
+					$('#keywordsEmpty').hide()
+				} else {
+					$('#keywordsTable').hide()
+					$('#keywordsEmpty').show()
+				}
+			})
+
+			function removeKeyword(context) {
+
+				var k = $(context).parent().parent().children().eq(0).html();
+				var l = $(context).parent().parent().children().eq(1).html();
+
+				$.ajax({url: "settings/remove/keyword/" + encodeURI(k) + '/' + l, success: function(result) {
+			        alert(result)
+			    }});
+
+				$(context).parent().parent().remove();
+				var c = $('#keywords_count').html();
+				c--;
+				if (c != $('#keywords_max_count').html()) {
+					$('#keywords_count_badge').addClass('badge-success').removeClass('badge-default');
+					$('#addKeywordButton').prop("disabled", false);
+				}
+				$('#keywords_count').html(c);
+
+				if ($('#keywords_count').html() != 0) {
+					$('#keywordsTable').show()
+					$('#keywordsEmpty').hide()
+				} else {
+					$('#keywordsTable').hide()
+					$('#keywordsEmpty').show()
+				}
+
+			}
+
+			function addKeyword() {
+			
+				if ($('#keywordInput').val() && $('#keywordInput').val().length > 1) {
+					$('#keywordsTable tbody').append('<tr><td>'+ $('#keywordInput').val() + '</td><td>' + $('#langSelector').find(":selected").text() + '</td><td><button onclick="removeKeyword(this)" type="button" class="btn btn-danger btn-xs">Remove</button></td></tr>');
+					var c = $('#keywords_count').html();
+					c++;
+					if (c == $('#keywords_max_count').html()) {
+						$('#keywords_count_badge').addClass('badge-default').removeClass('badge-success');
+						$('#addKeywordButton').prop("disabled", true);
+					}
+					
+
+					// add keyword ajax
+					$.ajax({url: "settings/add/keyword/" + encodeURI($('#keywordInput').val()) + '/' + $('#langSelector').find(":selected").val(), success: function(result) {
+				        alert(result)
+				    }});
+
+					$('#keywordInput').val('')
+					$('#keywords_count').html(c);
+
+					if ($('#keywords_count').html() != 0) {
+					$('#keywordsTable').show()
+					$('#keywordsEmpty').hide()
+					} else {
+						$('#keywordsTable').hide()
+						$('#keywordsEmpty').show()
+					}
+				}
+
+			}
+
+		</script>
 	</body>
 </html>

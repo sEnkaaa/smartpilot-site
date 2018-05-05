@@ -28,7 +28,9 @@ Route::middleware('auth')->group(function() {
 	Route::get('/twitterAccount/{twitter_id}/start', 'TwitterAccountController@start');
 	Route::get('/twitterAccount/{twitter_id}/stop', 'TwitterAccountController@stop');
 	Route::post('/twitterAccount/{twitter_id}', 'TwitterAccountController@store');
-
+	Route::get('/twitterAccount/{twitter_id}/settings', 'TwitterAccountSettingsController@index')->name('twitterAccountSettings');
+	Route::get('/twitterAccount/{twitter_id}/settings/add/keyword/{keywords}/{lang}', 'TwitterAccountSettingsController@addKeyword');
+	Route::get('/twitterAccount/{twitter_id}/settings/remove/keyword/{keywords}/{lang}', 'TwitterAccountSettingsController@removeKeyword');
 });
 
 /* Unauthenticated routing */ 

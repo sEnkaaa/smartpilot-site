@@ -8,7 +8,7 @@
 		<p class="page-subtitle">Manage your Twitter Account</p>
 	</div>
 	<ul class="breadcrumb">
-		<li><a href="#"><i class="fa fa-home"></i> Twitter Account</a></li>
+		<li class="active">Twitter Account</li>
 	</ul>
 </div>
 <div class="container-fluid">
@@ -65,10 +65,10 @@
 										@endif
 									</div>
 									<div class="col-md-6">
-										<button class="btn btn-block btn-default">
+										<a href="{{ route('twitterAccountSettings', ['twitter_id' => $twitterAccount->twitter_id]) }}" class="btn btn-block btn-default">
 											<i class="fa fa-cog"></i>
 											<span>Settings</span>
-										</button>
+										</a>
 									</div>
 								</div>
 							</div>
@@ -90,6 +90,11 @@
 										@else
 										<span class="badge badge-default">STOPPED</span>
 										@endif
+									</li>
+									<li>Keywords
+										@foreach ($twitterAccount->keywords as $keyword)
+										<span>{{ $keyword->name}}&nbsp;</span>
+										@endforeach
 									</li>
 								</ul>
 							</div>

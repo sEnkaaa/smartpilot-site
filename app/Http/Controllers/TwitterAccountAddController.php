@@ -145,7 +145,7 @@ class TwitterAccountAddController extends Controller
             $relation->user_id = $me->id;
             $relation->save();
 
-            return redirect()->route('dashboard');
+            return redirect()->route('twitterAccountSettings', ['twitter_id' => $credentials->id]);
 
         } else {
             return redirect()->route('dashboard')->withErrors(["You can't add more Twitter accounts"]);
