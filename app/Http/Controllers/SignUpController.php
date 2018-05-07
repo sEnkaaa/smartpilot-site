@@ -65,7 +65,6 @@ class SignUpController extends Controller
                 ]
             ]
         );
-        return $response->getBody();
         if (!json_decode((string)$response->getBody())->success) {
             return redirect('signup')
                 ->withErrors(['Recaptcha validation failed'])
