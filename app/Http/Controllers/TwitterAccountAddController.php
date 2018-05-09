@@ -77,7 +77,8 @@ class TwitterAccountAddController extends Controller
                 $credentials = Twitter::getCredentials();
             } catch (\Exception $e) {
                 return redirect()->route('twitterAccountAdd')
-                    ->withErrors(['One of the tokens you just submitted is wrong, please try again']);
+                    ->withErrors(['One of the tokens you just submitted is wrong, please try again'])
+                    ->with('sweet_alert_error', 'Some tokens you provided are wrong, please check them and retry');
             }
 
             $me = User::find(Auth::user()->id);
@@ -145,7 +146,7 @@ class TwitterAccountAddController extends Controller
             $relation->user_id = $me->id;
             $relation->save();
 
-            return redirect()->route('twitterAccountSettings', ['twitter_id' => $credentials->id]);
+            return redirect()->route('twitterAccountSettings', ['twitter_id' => $credentials->id])->with('sweet_alert_success', 'Good job ! Now you have to add some keywords to start the process !');
 
         } else {
             return redirect()->route('dashboard')->withErrors(["You can't add more Twitter accounts"]);

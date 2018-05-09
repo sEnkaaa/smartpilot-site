@@ -46,7 +46,7 @@
 									<td>{{ $account->followings_count }}</td>
 									<td>{{ $account->followers_count }}</td>
 									<td>
-										@if ($account->running === true)
+										@if ($account->running == 1)
 										<span class="badge badge-success">RUNNING</span>
 										@else
 										<span class="badge badge-default">STOPPED</span>

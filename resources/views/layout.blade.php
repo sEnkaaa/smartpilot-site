@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 	<head>
-		<title>Dashboard v3 | Klorofil Pro - Bootstrap Admin Dashboard Template</title>
+		<title>SmartPilot</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="/assets/vendor/themify-icons/css/themify-icons.css">
 		<link rel="stylesheet" href="/assets/vendor/pace/themes/orange/pace-theme-minimal.css">
 		<link rel="stylesheet" href="/assets/vendor/select2/css/select2.min.css">
+		<link rel="stylesheet" href="/assets/vendor/sweetalert2/sweetalert2.css">
 		<!-- MAIN CSS -->
 		<link rel="stylesheet" href="/assets/css/main.css">
 		<link rel="stylesheet" href="/assets/css/skins/sidebar-nav-darkgray.css" type="text/css">
@@ -63,6 +64,7 @@
 		<script src="/assets/vendor/pace/pace.min.js"></script>
 		<script src="/assets/vendor/select2/js/select2.min.js"></script>
 		<script src="/assets/scripts/klorofilpro-common.js"></script>
+		<script src="/assets/vendor/sweetalert2/sweetalert2.js"></script>
 		<!-- DEMO PANEL -->
 
 		<script type="text/javascript">
@@ -76,6 +78,23 @@
 					$('#keywordsTable').hide()
 					$('#keywordsEmpty').show()
 				}
+
+				@if (session('sweet_alert_success'))
+				swal(
+					'Good job!',
+					'{{session('sweet_alert_success')}}',
+					'success'
+				).catch(swal.noop);
+				@endif
+
+				@if (session('sweet_alert_error'))
+				swal(
+					'Error!',
+					'{{session('sweet_alert_error')}}',
+					'error'
+				).catch(swal.noop);
+				@endif
+
 			})
 
 			function removeKeyword(context) {
@@ -84,7 +103,7 @@
 				var l = $(context).parent().parent().children().eq(1).html();
 
 				$.ajax({url: "settings/remove/keyword/" + encodeURI(k) + '/' + l, success: function(result) {
-			        alert(result)
+			        console.log(result)
 			    }});
 
 				$(context).parent().parent().remove();
