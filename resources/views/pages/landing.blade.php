@@ -3,6 +3,8 @@
 
 <head>
 	<meta charset="utf-8">
+	<meta name="description" content="Get more Twitter followers for free with SmartPilot.me. Free 2018 Twitter bot.">
+	<meta name="keywords" content="twitter, twitter bot, free followers, followers, bot, growth hacking">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>SmartPilot.me</title>
@@ -99,6 +101,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 					<li><a href="#features">Features</a></li>
 					<li><a href="#contact">Contact</a></li>
 					<li><a href="{{ route('signin') }}">Login</a></li>
+					<li><a href="{{ route('signup') }}">Register</a></li>
 				</ul>
 				<!-- /Main navigation -->
 
